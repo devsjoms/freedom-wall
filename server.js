@@ -7,27 +7,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"))
 
 
-app.post('/submit', (req, res) => {
-
-    let name = req.body.name;
+app.post('/submit', async (req, res) => {
+    let name = req.body.name || 'Anonymous';
     const message = req.body.message;
 
     const sql = "INSERT INTO messages (name, message) VALUES (?, ?)";
 
-    if(!name){
-        name = "Anonymous";
+    try {
+        const [result] = await db.query(sql, [name, message]);
+        console.log("Message Posted Successfully!");
+        res.redirect("/");
+    } catch (err) {
+        console.error("Error Posting a Message!", err);
+        res.redirect("/");
     }
-    db.query(sql, [name, message], (err, result) => {
-        if(err) {
-            console.log("Error Posting a Message!")
-            console.log(err)
-            res.redirect("/")
-        } else {
-            console.log("Message Posted Succesfully!")
-            res.redirect("/")
-        }
-    });
-
 });
 
 
