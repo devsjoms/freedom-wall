@@ -31,25 +31,14 @@ app.post('/submit', (req, res) => {
 });
 
 
-app.get('/users', (req, res) => {
-
-    const sql = "SELECT * FROM messages";
-
-    db.query(sql, (err, result) => {
-        console.log("RESULT:", result);
-        console.log("ERROR:", err);
-        if(err){
-            console.error("USERS ROUTE ERROR:", err);
-
-            return res.status(500).json({
-                error: err.message
-            });
-        }
-
-        res.json(result);
-
-    });
-
+app.get('/users', async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM users');
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
 });
 
 app.listen(PORT, () => {
