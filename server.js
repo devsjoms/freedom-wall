@@ -38,10 +38,13 @@ app.get('/users', (req, res) => {
     db.query(sql, (err, result) => {
 
         if(err){
-            res.send("Error");
-        } else {
-            res.json(result);
+            console.error(err);
+            return res.status(500).json({
+                error: err.message
+            });
         }
+
+        res.json(result);
 
     });
 
