@@ -1,51 +1,75 @@
 const express = require('express');
 const app = express();
 const db = require('./database/db');
+
 const PORT = process.env.PORT || 3000;
+
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"))
+app.use(express.static("public"));
 
 
-console.log({
-    host: process.env.MYSQLHOST,
-    port: process.env.MYSQLPORT,
-    user: process.env.MYSQLUSER,
-    database: process.env.MYSQLDATABASE
-});
-
+// POST MESSAGE
 app.post('/submit', async (req, res) => {
 
-    let name = req.body.name;
-    const message = req.body.message;
-
-    if (!name) {
-        name = "Anonymous";
-    }
-
-    const sql = "INSERT INTO messages (name, message) VALUES (?, ?)";
-
     try {
+
+        let name = req.body.name;
+        const message = req.body.message;
+
+        if (!name) {
+            name = "Anonymous";
+        }
+
+        const sql = `
+            INSERT INTO messages (name, message)
+            VALUES (?, ?)
+        `;
+
         await db.query(sql, [name, message]);
+
         console.log("Message Posted Successfully!");
-        res.redirect("/");
-    } catch(err) {
-        console.error(err);
-        res.redirect("/");
+
+        res.redirect('/');
+
+    } catch (err) {
+
+        console.log("Error Posting Message");
+        console.log(err);
+
+        res.redirect('/');
     }
+
 });
 
+
+// GET ALL MESSAGES
 app.get('/users', async (req, res) => {
+
     try {
-        const [rows] = await db.query("SELECT * FROM messages");
-        res.json(rows);
-    } catch(err) {
-        console.error(err);
+
+        const sql = `
+            SELECT *
+            FROM messages
+            ORDER BY id DESC
+        `;
+
+        const [result] = await db.query(sql);
+
+        res.json(result);
+
+    } catch (err) {
+
+        console.log(err);
+
         res.status(500).json({
             error: err.message
         });
+
     }
+
 });
 
-app.listen(PORT, () =>{
-    console.log(`Using port ${PORT} in localhost open http://localhost:${PORT}`)
+
+app.listen(PORT, () => {
+    console.log(`Running on port ${PORT}`);
 });

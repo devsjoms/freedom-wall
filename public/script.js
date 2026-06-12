@@ -33,6 +33,6 @@ const modal = document.getElementById("modal");
 btn.addEventListener("click", () =>{
     modal.style.display = "none";
 })
-btn.addEventListener("click", () =>{
-    modal.style.display = "none";
+opbtn.addEventListener("click", () =>{
+    modal.style.display = "flex";
 })
