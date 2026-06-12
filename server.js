@@ -14,10 +14,11 @@ app.post('/submit', async (req, res) => {
 
         console.log("POST ROUTE HIT");
 
+        let name = req.body.name || "Anonymous";
         const [result] = await db.query(
             "INSERT INTO messages (name, message) VALUES (?, ?)",
             [
-                req.body.name,
+                name,
                 req.body.message
             ]
         );
