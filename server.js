@@ -8,39 +8,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
-// POST MESSAGE
 app.post('/submit', async (req, res) => {
 
-    try {
+    console.log("POST ROUTE HIT");
+    console.log(req.body);
 
-        let name = req.body.name;
-        const message = req.body.message;
-
-        if (!name) {
-            name = "Anonymous";
-        }
-
-        const sql = `
-            INSERT INTO messages (name, message)
-            VALUES (?, ?)
-        `;
-
-        await db.query(sql, [name, message]);
-
-        console.log("Message Posted Successfully!");
-
-        res.redirect('/');
-
-    } catch (err) {
-
-        console.log("Error Posting Message");
-        console.log(err);
-
-        res.redirect('/');
-    }
+    res.send("TEST OK");
 
 });
-
 
 // GET ALL MESSAGES
 app.get('/users', async (req, res) => {
