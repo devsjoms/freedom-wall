@@ -10,10 +10,29 @@ app.use(express.static("public"));
 
 app.post('/submit', async (req, res) => {
 
-    console.log("POST ROUTE HIT");
-    console.log(req.body);
+    try {
 
-    res.send("TEST OK");
+        console.log("POST ROUTE HIT");
+
+        const [result] = await db.query(
+            "INSERT INTO messages (name, message) VALUES (?, ?)",
+            [
+                req.body.name,
+                req.body.message
+            ]
+        );
+
+        console.log(result);
+
+        res.send("INSERT OK");
+
+    } catch(err) {
+
+        console.log(err);
+
+        res.status(500).send(err.message);
+
+    }
 
 });
 
