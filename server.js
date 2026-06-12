@@ -38,7 +38,8 @@ app.get('/users', (req, res) => {
     db.query(sql, (err, result) => {
 
         if(err){
-            console.error(err);
+            console.error("USERS ROUTE ERROR:", err);
+
             return res.status(500).json({
                 error: err.message
             });
