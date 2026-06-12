@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const db = require('./database/db');
+const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"))
@@ -46,6 +47,6 @@ app.get('/users', (req, res) => {
 
 });
 
-app.listen(3000, () =>{
-    console.log("Using port 3000 in localhost open http://localhost:3000")
+app.listen(PORT, () => {
+    console.log(`Running on ${PORT}`);
 });
