@@ -36,7 +36,8 @@ app.get('/users', (req, res) => {
     const sql = "SELECT * FROM messages";
 
     db.query(sql, (err, result) => {
-
+        console.log("RESULT:", result);
+        console.log("ERROR:", err);
         if(err){
             console.error("USERS ROUTE ERROR:", err);
 
