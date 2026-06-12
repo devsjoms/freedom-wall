@@ -6,44 +6,37 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"))
 
 
-app.post('/submit', (req, res) => {
+app.post('/submit', async (req, res) => {
 
     let name = req.body.name;
     const message = req.body.message;
 
-    const sql = "INSERT INTO messages (name, message) VALUES (?, ?)";
-
-    if(!name){
+    if (!name) {
         name = "Anonymous";
     }
-    db.query(sql, [name, message], (err, result) => {
-        if(err) {
-            console.log("Error Posting a Message!")
-            console.log(err)
-            res.redirect("/")
-        } else {
-            console.log("Message Posted Succesfully!")
-            res.redirect("/")
-        }
-    });
 
+    const sql = "INSERT INTO messages (name, message) VALUES (?, ?)";
+
+    try {
+        await db.query(sql, [name, message]);
+        console.log("Message Posted Successfully!");
+        res.redirect("/");
+    } catch(err) {
+        console.error(err);
+        res.redirect("/");
+    }
 });
 
-
-app.get('/users', (req, res) => {
-
-    const sql = "SELECT * FROM messages";
-
-    db.query(sql, (err, result) => {
-
-        if(err){
-            res.send("Error");
-        } else {
-            res.json(result);
-        }
-
-    });
-
+app.get('/users', async (req, res) => {
+    try {
+        const [rows] = await db.query("SELECT * FROM messages");
+        res.json(rows);
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({
+            error: err.message
+        });
+    }
 });
 
 app.listen(PORT, () =>{

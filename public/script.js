@@ -1,20 +1,30 @@
 fetch('/users')
-    .then(response => response.json())
+    .then(async response => {
+
+        if (!response.ok) {
+            const text = await response.text();
+            console.error(text);
+            return [];
+        }
+
+        return response.json();
+    })
     .then(data => {
 
         const container = document.getElementById('messages');
-        console.log(container)
-        data.forEach(details => {
 
+        data.forEach(details => {
             container.innerHTML += `
-            <div class = "mess">
+            <div class="mess">
                 <h3>Message from ${details.name}</h3>
                 <p>${details.message}</p>
             </div>
-                `;
-
+            `;
         });
 
+    })
+    .catch(err => {
+        console.error("Error loading messages:", err);
     });
 
 const btn = document.getElementById("close");
