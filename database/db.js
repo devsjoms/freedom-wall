@@ -10,11 +10,12 @@ const db = mysql.createPool({
     queueLimit: 0
 });
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
     if(err){
-        console.error("Database connection failed:", err);
+        console.error(err);
     } else {
         console.log("Database connected!");
+        connection.release();
     }
 });
 
