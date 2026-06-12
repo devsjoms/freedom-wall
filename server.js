@@ -23,9 +23,7 @@ app.post('/submit', async (req, res) => {
         );
 
         console.log(result);
-
-        res.send("INSERT OK");
-
+        res.redirect('/');
     } catch(err) {
 
         console.log(err);
