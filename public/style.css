@@ -29,8 +29,8 @@ body{
     height: 60%;
     border-radius: 20px;
     background-color: rgba(0, 255, 255, 0.393);
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     margin: auto;
     padding: 15px;
 }

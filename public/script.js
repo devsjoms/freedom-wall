@@ -1,4 +1,4 @@
-fetch('/users')
+fetch('/messages')
     .then(async response => {
         let data;
         try {
@@ -37,12 +37,16 @@ fetch('/users')
         console.error('Failed to load users:', err);
     });
 
-const btn = document.getElementById("close");
-const opbtn = document.getElementById("open")
-const modal = document.getElementById("modal");
-opbtn.addEventListener("click", () =>{
-    modal.style.display = "flex";
-})
-btn.addEventListener("click", () =>{
-    modal.style.display = "none";
-})
+const btn = document.getElementById('close');
+const opbtn = document.getElementById('open');
+const modal = document.getElementById('modal');
+if (opbtn && modal) {
+    opbtn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+}
+if (btn && modal) {
+    btn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+}

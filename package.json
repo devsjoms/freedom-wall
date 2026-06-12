@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:dev": "DEBUG=1 nodemon server.js",
+    "db:init": "node database/init.js",
+    "lint": "echo \"No linter configured\""
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,12 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mysql2": "^3.22.5"
+    "mysql2": "^3.22.5",
+    "helmet": "^6.0.0",
+    "morgan": "^1.10.0"
+  }
+  ,
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

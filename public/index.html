@@ -20,11 +20,11 @@
                     </div>
                     <div class="name">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" placeholder="(Optional)">
+                        <input type="text" name="name" id="name" placeholder="(Optional)" autocomplete="name">
                     </div>
                     <div class="message">
                         <label for="message">Message</label>
-                        <textarea name="message" id="message" placeholder="type something..." required></textarea>
+                        <textarea name="message" id="message" placeholder="type something..." required autocomplete="off"></textarea>
                     </div>
                     <button type="submit">Post</button>
                 </form>
@@ -42,7 +42,7 @@
     </div>
 
     <div class="modal" id="modal">
-        <button type="button" id="close" onclick="closeButton()">X</button>
+        <button type="button" id="close">X</button>
         <h2></h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat officiis, earum rem maxime, magni iusto architecto mollitia porro provident voluptates nemo laudantium. Eaque unde non aliquam adipisci facere quis illum?</p>
     </div>
