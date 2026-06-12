@@ -29,8 +29,23 @@ app.get('/users', async (req, res) => {
         const [rows] = await db.query('SELECT * FROM users');
         res.json(rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: err.message });
+            console.error('GET /users error:', err);
+            const payload = { error: err.message };
+            if (process.env.DEBUG === 'true' || process.env.DEBUG === '1') {
+                payload.stack = err.stack;
+            }
+            res.status(500).json(payload);
+    }
+});
+
+// DB connectivity check endpoint (returns 200 with a small query result or 500 with error info)
+app.get('/dbcheck', async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT 1 AS ok');
+        res.json({ ok: true, rows });
+    } catch (err) {
+        console.error('GET /dbcheck error:', err);
+        res.status(500).json({ ok: false, error: err.message, code: err.code });
     }
 });
 
