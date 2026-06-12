@@ -19,4 +19,4 @@ db.getConnection((err, connection) => {
     }
 });
 
-module.exports = db.promise();
+module.exports = db;
