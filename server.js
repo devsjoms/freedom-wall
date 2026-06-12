@@ -15,7 +15,7 @@ app.post('/submit', async (req, res) => {
         console.log("POST ROUTE HIT");
 
         const [result] = await db.query(
-            "INSERT INTO messages (name, messages) VALUES (?, ?)",
+            "INSERT INTO messages (name, message) VALUES (?, ?)",
             [
                 req.body.name,
                 req.body.message
