@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Freedom Wall</title>
+</head>
+<body>
+    <div class="parent-box">
+        <div class="left">
+            
+            <div class="form-field">
+                <form action="/submit" method="post">
+                    <div class="form-title">
+                        <h1 class="post-title">
+                            POST A MESSAGE
+                        </h1>
+                        <button type="button" id="open">?</button>
+                    </div>
+                    <div class="name">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" placeholder="(Optional)">
+                    </div>
+                    <div class="message">
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" placeholder="type something..." required></textarea>
+                    </div>
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+        </div>
+        <div class="right">
+            <div class="ttl">
+                <h1 class="title">WALL</h1>
+            </div>
+            
+            <div id="messages" class="msg-box">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <button type="button" id="close" onclick="closeButton()">X</button>
+        <h2></h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat officiis, earum rem maxime, magni iusto architecto mollitia porro provident voluptates nemo laudantium. Eaque unde non aliquam adipisci facere quis illum?</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
