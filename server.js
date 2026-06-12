@@ -38,7 +38,12 @@ app.get('/users', async (req, res) => {
         });
     }
 });
-
+console.log({
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+    user: process.env.MYSQLUSER,
+    database: process.env.MYSQLDATABASE
+});
 app.listen(PORT, () =>{
     console.log(`Using port ${PORT} in localhost open http://localhost:${PORT}`)
 });
